@@ -10,6 +10,44 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
             <a class="navbar-brand" href="#">Stock Market Predictor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Popular Stocks
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Microsoft</a>
+                            <a class="dropdown-item" href="#">Google</a>
+                            <a class="dropdown-item" href="#">Amazon</a>
+                            <a class="dropdown-item" href="#">Apple</a>
+                            <a class="dropdown-item" href="#">Meta (Facebook)</a>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
         </nav>
+
+        <div class="container-fluid" style="padding:10vh;">
+          <h2 style="text-align:center;font-weight:600;font-size:2.8em;">Stock Market Prediction</h2>
+          {% block body %} {% endblock %}
+        </div>
+
+        <footer class="footer mt-auto py-3 fixed-bottom">
+          <div class="container">
+            <span class="text-muted">Stock Market Predictor by Anirudh Karnam</span>
+          </div>
+        </footer>
     </body>
 </html>
