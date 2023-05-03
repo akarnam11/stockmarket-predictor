@@ -57,6 +57,27 @@ def stock_prediction(stock_symbol):
     # reshapes the X_train array to have a shape of (num_samples, num_timesteps, num_features).
 
     histogram = model.fit(x_train, y_train, epochs=50, validation_data=(x_test, y_test), shuffle=False)
-    
 
+    plt.plot(histogram.history['loss'])
+    plt.plot(histogram.history['val_loss'])
+    plt.legend(['Loss', 'Validation Loss'], loc='upper right')
+    plt.savefig('archive/stocks/'+stock_symbol+'/'+stock_symbol+'2.png')
+    plt.clf()
+    plt.close()
+
+    # uses the trained RNN LSTM model to make predictions on the test data, and then evaluates the accuracy
+    # of the model's predictions by finding the average percent error between the predicted values and the real values.
+    index = 249
+    predicted_val = model.predict(x_test[index].reshape(1, 7, 1))  # uses the trained model to make a prediction on a single sample from the test data
+    predicted_price = scale.inverse_transform(predicted_val).copy()
+    predicted_val = model.predict(x_test)  # uses the trained model to make predictions on all the test data
+    real_values = scale.inverse_transform(y_test.reshape(-1, 1))  # scales the actual values back to the original scale
+    pred_values = scale.inverse_transform(predicted_val)  # scales the predicted values back to the original scale
+    avg_percent_error = 0
+    for i in range(len(real_values)):  # loops over all the samples
+        # in the test data and computes the average percentage error
+        # between the predicted values the actual values
+        avg_percent_error += abs((real_values[i] - pred_values[i]) / real_values[i]) * 100
+    avg_percent_error = round(float(avg_percent_error / len(real_values)), 2)
+    accuracy = 100 - avg_percent_error
 
