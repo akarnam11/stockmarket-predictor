@@ -7,6 +7,21 @@ from tensorflow.keras.layers import LSTM, Dropout, Dense
 import matplotlib.pyplot as plt
 
 
+def search_for_stock(stock_symbol):
+    """
+    Searchs for the stocks graph in the directories and returns 1 if found, 0 if not found.
+    param: stock_symbol - stock_symbol to be searched for
+    returns: 1 if found in directory, 0 if not found
+    """
+    try:
+        img = open('archive/stocks/'+stock_symbol+'/'+stock_symbol+'1.png', 'r')
+        print("found")
+        return 1
+    except FileNotFoundError:
+        print("not found")
+        return 0
+
+
 def process_data(data, num_days):
     """
     Takes a time series data and a lookback window
