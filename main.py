@@ -70,6 +70,7 @@ def stock_prediction(stock_symbol):
     index = 249
     predicted_val = model.predict(x_test[index].reshape(1, 7, 1))  # uses the trained model to make a prediction on a single sample from the test data
     predicted_price = scale.inverse_transform(predicted_val).copy()
+    predicted_price = round(float(predicted_price.tolist()[0][0]), 2)
     predicted_val = model.predict(x_test)  # uses the trained model to make predictions on all the test data
     real_values = scale.inverse_transform(y_test.reshape(-1, 1))  # scales the actual values back to the original scale
     pred_values = scale.inverse_transform(predicted_val)  # scales the predicted values back to the original scale
@@ -81,3 +82,18 @@ def stock_prediction(stock_symbol):
     avg_percent_error = round(float(avg_percent_error / len(real_values)), 2)
     accuracy = 100 - avg_percent_error
 
+    plt.plot(real_values)
+    plt.plot(pred_values)
+    plt.ylabel('Price')
+    plt.xlabel('Days')
+    plt.legend(['Real', 'Predicted'], loc='upper left')
+    plt.savefig('archive/stocks/'+stock_symbol+'/'+stock_symbol+'1.png')
+    plt.clf()
+    plt.close()
+
+    file_path = path+"archive/stocks/"+stock_symbol+"/"+stock_symbol+".txt"
+    store = [str(predicted_price), str(accuracy)]
+    with open(file_path, 'w') as handler:
+        for item in store:
+            handler.write('%s\n' % item)
+    return store
