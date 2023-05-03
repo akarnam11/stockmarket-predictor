@@ -32,7 +32,7 @@ def display(symbol):
         for item in handler:
             curr_spot = item[:-1]
             data.append(curr_spot)
-    return render_template("stocks_details.html")
+    return render_template("stocks_details.html", stockName=symbol, data=data)
 
 
 def predict(symbol):
@@ -40,7 +40,7 @@ def predict(symbol):
 
     """
     data = predict(symbol)
-    return render_template("stocks_details.html")
+    return render_template("stocks_details.html", stockName=symbol, data=data)
 
 
 if __name__ == "__main__":
